@@ -23,27 +23,28 @@ class Hand():
     
     def decide_ace_value(self, card: Card) -> int:
         while True:
-            print(f"What value do you want for {card}")
-            value = input("Please input 1 or 11 -> ")
+            print(f"\tWhat value do you want for {card}")
+            value = input("\tPlease input 1 or 11 -> ")
 
             if (not value.isdigit()) or (int(value) != 1 and int(value) != 11):
-                print("Invalid value")
+                print("\tInvalid value")
             
             return int(value)
     
-    @highlight_log
-    def show_hand_value(self) -> int:
+    def show_hand(self):
         print(self)
+    
+    def show_hand_value(self) -> int:
         aces = list(filter(lambda card: card.name == 'Ace', self.cards))
         no_aces = list(filter(lambda card: card.name != 'Ace', self.cards))
         no_aces_value = sum([card.value for card in no_aces])
 
         if not len(aces):
-            print(f"Hand value is {no_aces_value}")
+            print(f"\n-> Hand value is {no_aces_value}")
         else:
-            print(f"Hand value without counting Aces is {no_aces_value}")
-            print(f"You have {len(aces)} {'Ace' if len(aces) == 1 else 'Aces'} in your hand")
+            print(f"\n-> Hand value without counting Aces is {no_aces_value}")
+            print(f"\tYou have {len(aces)} {'Ace' if len(aces) == 1 else 'Aces'} in your hand")
             for ace in aces:
                 ace_value = self.decide_ace_value(ace)
                 no_aces_value += ace_value
-                print(f"Hand value is {no_aces_value}\n")
+                print(f"-> Hand value is {no_aces_value}\n")
