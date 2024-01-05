@@ -13,7 +13,8 @@ class Player():
             Choose option:
             1 - See hand
             2 - See hand value
-            3 - Ask for card\n
+            3 - Ask for card
+            4 - Set hand
             '''
             option = input_with_validation(message, list(PLAYER_OPTIONS.values()))
             if option == PLAYER_OPTIONS["SEE_HAND"]:
@@ -22,6 +23,9 @@ class Player():
                 self.hand.show_hand_value()
             else:
                 return option
+    
+    def set_hand(self) -> int:
+        return self.hand.show_hand_value()
 
     def take_cards(self, cards: Card | list[Card]) -> None:
         if type(cards) == Card:

@@ -29,4 +29,3 @@ def input_with_validation(prompt: str, options: list[str] | list[int]) -> str | 
                     return int_input
         
         print("Invalid input")
-        

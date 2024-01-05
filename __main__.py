@@ -14,8 +14,21 @@ dealer.show_first_card()
 
 player_cards = dealer.deal_player_cards(2)
 player.take_cards(player_cards)
-while True:
-    option = player.show_options()
-    if option == PLAYER_OPTIONS["TAKE_CARD"]:
-        card = dealer.deal_player_cards(1)
-        player.take_cards(card)
+
+
+def play_player_turn() -> int:
+    while True:
+        option = player.show_options()
+        if option == PLAYER_OPTIONS["TAKE_CARD"]:
+            card = dealer.deal_player_cards(1)
+            player.take_cards(card)
+        if option == PLAYER_OPTIONS["FINISH"]:
+            return player.set_hand()
+
+hand_value = play_player_turn()
+if hand_value > 21:
+    print("Player busted -> The dealer win")
+if hand_value == 21:
+    print("Blackjack -> The player win")
+if hand_value < 21:
+    dealer.hand.show_hand()
