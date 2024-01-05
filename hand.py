@@ -1,5 +1,5 @@
 from card import Card
-from utils import highlight_log
+from utils import input_with_validation
 
 class Hand():
     def __init__(self):
@@ -22,14 +22,8 @@ class Hand():
             yield card
     
     def decide_ace_value(self, card: Card) -> int:
-        while True:
-            print(f"\tWhat value do you want for {card}")
-            value = input("\tPlease input 1 or 11 -> ")
-
-            if (not value.isdigit()) or (int(value) != 1 and int(value) != 11):
-                print("\tInvalid value")
-            
-            return int(value)
+        print(f"\tWhat value do you want for {card}")
+        return input_with_validation("Input desired value -> 1 / 11\n", [1, 11])
     
     def show_hand(self):
         print(self)
@@ -42,9 +36,17 @@ class Hand():
         if not len(aces):
             print(f"\n-> Hand value is {no_aces_value}")
         else:
-            print(f"\n-> Hand value without counting Aces is {no_aces_value}")
-            print(f"\tYou have {len(aces)} {'Ace' if len(aces) == 1 else 'Aces'} in your hand")
-            for ace in aces:
-                ace_value = self.decide_ace_value(ace)
-                no_aces_value += ace_value
-                print(f"-> Hand value is {no_aces_value}\n")
+            while True:
+                print(f"\n-> Hand value without counting Aces is {no_aces_value}")
+                print(f"\tYou have {len(aces)} {'Ace' if len(aces) == 1 else 'Aces'} in your hand")
+                total_value = no_aces_value
+                for ace in aces:
+                    ace_value = self.decide_ace_value(ace)
+                    total_value += ace_value
+                    print(f"-> Hand value is {total_value}\n")
+
+                keep_hand = input_with_validation("\nKeep this value? yes/no\n", ["yes", "no"])
+                if keep_hand == "yes":
+                    return total_value
+                
+

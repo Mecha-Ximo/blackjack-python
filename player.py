@@ -1,17 +1,27 @@
 from hand import Hand
 from card import Card
-from utils import highlight_log
+from utils import input_with_validation, PLAYER_OPTIONS
 
 class Player():
     def __init__(self, name: str):
         self.name = name
         self.hand = Hand()
     
-    @highlight_log
-    def see_hand(self):
-        print(f"Hand of {self.name}")
-        self.hand.show_hand()
-        self.hand.show_hand_value()
+    def show_options(self):
+        while True:
+            message = '''
+            Choose option:
+            1 - See hand
+            2 - See hand value
+            3 - Ask for card\n
+            '''
+            option = input_with_validation(message, list(PLAYER_OPTIONS.values()))
+            if option == PLAYER_OPTIONS["SEE_HAND"]:
+                self.hand.show_hand()
+            elif option == PLAYER_OPTIONS["SEE_HAND_VALUE"]:
+                self.hand.show_hand_value()
+            else:
+                return option
 
     def take_cards(self, cards: Card | list[Card]) -> None:
         if type(cards) == Card:

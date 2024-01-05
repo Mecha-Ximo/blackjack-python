@@ -5,11 +5,12 @@ PLAYER_OPTIONS = {
     'FINISH': 4
 }
 
-def highlight_log(fn):
+def highlight_log(fn,):
+    n = 40
     def wrapper(*args,**kwargs):
-        print(f"\n{'#' * 20}")
+        print(f"\n{'#' * n}")
         res = fn(*args, **kwargs)
-        print(f"{'#' * 20}\n")
+        print(f"{'#' * n}\n")
         return res
     
     return wrapper
