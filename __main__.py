@@ -5,9 +5,12 @@ from utils import PLAYER_OPTIONS
 
 deck = Deck()
 dealer = Dealer('The Dealer', deck)
-player = Player('The Player')
+player = Player('The Player', 10000)
 
 dealer.shuffle_deck()
+
+player_bet = player.place_bet()
+
 dealer_cards = dealer.deal_player_cards(2)
 dealer.take_cards(dealer_cards)
 dealer.show_first_card()
@@ -23,7 +26,7 @@ def play_player_turn() -> int:
             card = dealer.deal_player_cards(1)
             player.take_cards(card)
         if option == PLAYER_OPTIONS["FINISH"]:
-            return player.set_hand()
+            return player.stand()
 
 hand_value = play_player_turn()
 if hand_value > 21:

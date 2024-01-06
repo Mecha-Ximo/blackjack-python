@@ -1,30 +1,34 @@
 from hand import Hand
 from card import Card
-from utils import input_with_validation, PLAYER_OPTIONS
+from utils import input_in_list, PLAYER_OPTIONS, input_number_in_range
 
 class Player():
-    def __init__(self, name: str):
+    def __init__(self, name: str, chips: int):
         self.name = name
+        self.chips = chips
         self.hand = Hand()
+    
+    def place_bet(self):
+        print(f"Current balance {self.chips} chips")
+        bet = input_number_in_range("Place your bet -> ", 0, self.chips)
+        print(f"{self.name} bets {bet} chips")
+        return bet
     
     def show_options(self):
         while True:
             message = '''
             Choose option:
             1 - See hand
-            2 - See hand value
-            3 - Ask for card
-            4 - Set hand
+            2 - Hit
+            3 - Stand
             '''
-            option = input_with_validation(message, list(PLAYER_OPTIONS.values()))
+            option = input_in_list(message, list(PLAYER_OPTIONS.values()))
             if option == PLAYER_OPTIONS["SEE_HAND"]:
                 self.hand.show_hand()
-            elif option == PLAYER_OPTIONS["SEE_HAND_VALUE"]:
-                self.hand.show_hand_value()
             else:
                 return option
     
-    def set_hand(self) -> int:
+    def stand(self) -> int:
         return self.hand.show_hand_value()
 
     def take_cards(self, cards: Card | list[Card]) -> None:

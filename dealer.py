@@ -5,7 +5,7 @@ from utils import highlight_log
 
 class Dealer(Player):
     def __init__(self, name: str, deck: Deck):
-        super().__init__(name)
+        super().__init__(name, 0)
         self.deck = deck
 
     def shuffle_deck(self) -> None:

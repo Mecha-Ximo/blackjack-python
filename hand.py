@@ -1,5 +1,5 @@
 from card import Card
-from utils import input_with_validation
+from utils import input_in_list, highlight_log
 
 class Hand():
     def __init__(self):
@@ -23,8 +23,9 @@ class Hand():
     
     def decide_ace_value(self, card: Card) -> int:
         print(f"\tWhat value do you want for {card}")
-        return input_with_validation("Input desired value -> 1 / 11\n", [1, 11])
+        return input_in_list("Input desired value -> 1 / 11\n", [1, 11])
     
+    @highlight_log
     def show_hand(self):
         print(self)
     
@@ -35,6 +36,9 @@ class Hand():
 
         if not len(aces):
             print(f"\n-> Hand value is {no_aces_value}")
+            keep_hand = input_in_list("\nKeep this value? yes/no\n", ["yes", "no"])
+            if keep_hand == "yes":
+                return no_aces_value
         else:
             while True:
                 print(f"\n-> Hand value without counting Aces is {no_aces_value}")
@@ -45,7 +49,7 @@ class Hand():
                     total_value += ace_value
                     print(f"-> Hand value is {total_value}\n")
 
-                keep_hand = input_with_validation("\nKeep this value? yes/no\n", ["yes", "no"])
+                keep_hand = input_in_list("\nKeep this value? yes/no\n", ["yes", "no"])
                 if keep_hand == "yes":
                     return total_value
                 

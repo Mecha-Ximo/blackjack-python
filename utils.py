@@ -1,8 +1,7 @@
 PLAYER_OPTIONS = {
     'SEE_HAND': 1,
-    'SEE_HAND_VALUE': 2,
-    'TAKE_CARD': 3,
-    'FINISH': 4
+    'TAKE_CARD': 2,
+    'FINISH': 3
 }
 
 def highlight_log(fn,):
@@ -15,7 +14,21 @@ def highlight_log(fn,):
     
     return wrapper
 
-def input_with_validation(prompt: str, options: list[str] | list[int]) -> str | int:
+def input_number_in_range(prompt: str, min: int, max: int) -> int:
+    while True:
+        user_input = input(prompt)
+        if not user_input.isdigit():
+            print('Input a number')
+            continue
+
+        n = int(user_input)
+        if n < min or n > max:
+            print('Number out of range')
+            continue
+
+        return n
+
+def input_in_list(prompt: str, options: list[str] | list[int]) -> str | int:
     while True:
         user_input = input(prompt)
 
