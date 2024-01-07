@@ -38,6 +38,27 @@ class Hand():
     def get_hand_without_aces_value(self):
         return sum([card.value for card in self.get_hand_without_aces()])
     
+    def get_possible_values(self) -> list[int]:
+        base_value = self.get_hand_without_aces_value()
+        aces = self.get_hand_aces()
+
+        if not len(aces):
+            return [base_value]
+        
+        possibilities = [base_value]
+        for _ in aces:
+            for i in range(len(possibilities)):
+                base = possibilities.pop(i)
+                possibilities.insert(i, base + 1)
+                possibilities.append(base + 11)
+
+        filtered_possibilities = list(set(possibilities))
+        filtered_possibilities.sort()
+
+        return filtered_possibilities
+
+
+    
     def show_hand_value(self) -> int:
         aces = self.get_hand_aces()
         no_aces_value = self.get_hand_without_aces_value()
@@ -62,3 +83,16 @@ class Hand():
                     return total_value
                 
 
+card1 = Card('Ace', 1, 'Hearts')
+card2 = Card('Ace', 1, 'Hearts')
+card3 = Card('Ace', 1, 'Hearts')
+card4 = Card('Eight', 8, 'Spades')
+
+hand = Hand()
+hand.add_card(card1)
+hand.add_card(card2)
+hand.add_card(card3)
+hand.add_card(card4)
+
+hand.show_hand()
+print(hand.get_possible_values())
