@@ -28,11 +28,19 @@ class Hand():
     @highlight_log
     def show_hand(self):
         print(self)
+
+    def get_hand_aces(self) -> list[Card]:
+        return list(filter(lambda card: card.name == 'Ace', self.cards))
+    
+    def get_hand_without_aces(self) -> list[Card]:
+        return list(filter(lambda card: card.name != 'Ace', self.cards))
+    
+    def get_hand_without_aces_value(self):
+        return sum([card.value for card in self.get_hand_without_aces()])
     
     def show_hand_value(self) -> int:
-        aces = list(filter(lambda card: card.name == 'Ace', self.cards))
-        no_aces = list(filter(lambda card: card.name != 'Ace', self.cards))
-        no_aces_value = sum([card.value for card in no_aces])
+        aces = self.get_hand_aces()
+        no_aces_value = self.get_hand_without_aces_value()
 
         if not len(aces):
             print(f"\n-> Hand value is {no_aces_value}")
