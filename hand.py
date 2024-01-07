@@ -57,7 +57,8 @@ class Hand():
 
         return filtered_possibilities
 
-
+    def get_valid_values(self):
+        return list(filter(lambda v: v <= 21, self.get_possible_values()))
     
     def show_hand_value(self) -> int:
         aces = self.get_hand_aces()
@@ -81,18 +82,4 @@ class Hand():
                 keep_hand = input_in_list("\nKeep this value? yes/no\n", ["yes", "no"])
                 if keep_hand == "yes":
                     return total_value
-                
-
-card1 = Card('Ace', 1, 'Hearts')
-card2 = Card('Ace', 1, 'Hearts')
-card3 = Card('Ace', 1, 'Hearts')
-card4 = Card('Eight', 8, 'Spades')
-
-hand = Hand()
-hand.add_card(card1)
-hand.add_card(card2)
-hand.add_card(card3)
-hand.add_card(card4)
-
-hand.show_hand()
-print(hand.get_possible_values())
+            
